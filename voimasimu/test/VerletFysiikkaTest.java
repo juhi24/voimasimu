@@ -3,19 +3,22 @@
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author jussi24
  */
 public class VerletFysiikkaTest {
-    
+    ArrayList<Pallo> aurinkokunta;
+    Pallo aurinko;
+    Pallo planeetta;
     VerletFysiikka fysiikka;
     
     public VerletFysiikkaTest() {
@@ -23,6 +26,7 @@ public class VerletFysiikkaTest {
     
     @BeforeClass
     public static void setUpClass() {
+        
     }
     
     @AfterClass
@@ -31,6 +35,9 @@ public class VerletFysiikkaTest {
     
     @Before
     public void setUp() {
+        aurinkokunta = new ArrayList<Pallo>();
+        aurinko = new Pallo(1000,0,0,0,0);
+        planeetta = new Pallo(10,100,0,0,20);
     }
     
     @After
@@ -40,18 +47,18 @@ public class VerletFysiikkaTest {
     /**
      * Test of acceleration method, of class VerletFysiikka.
      */
-    @Test
-    public void testAcceleration() {
-        System.out.println("acceleration");
-        Pallo p = null;
-        int dim = 0;
-        VerletFysiikka instance = null;
-        double expResult = 0.0;
-        double result = instance.acceleration(p, dim);
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testAcceleration() {
+//        System.out.println("acceleration");
+//        Pallo p = null;
+//        int dim = 0;
+//        VerletFysiikka instance = null;
+//        double expResult = 0.0;
+//        double result = instance.acceleration(p, dim);
+//        assertEquals(expResult, result, 0.0);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
     /**
      * Test of distance method, of class VerletFysiikka.
@@ -59,12 +66,12 @@ public class VerletFysiikkaTest {
     @Test
     public void testDistance() {
         System.out.println("distance");
-        Pallo p1 = null;
-        Pallo p2 = null;
-        VerletFysiikka instance = null;
-        double expResult = 0.0;
-        double result = instance.distance(p1, p2);
-        assertEquals(expResult, result, 0.0);
+        aurinkokunta.add(aurinko);
+        aurinkokunta.add(planeetta);
+        fysiikka = new VerletFysiikka(1,aurinkokunta);
+        double expResult = 100;
+        double result = fysiikka.distance(aurinko, planeetta);
+        assertEquals(expResult, result, 0.01);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -72,12 +79,18 @@ public class VerletFysiikkaTest {
     /**
      * Test of step method, of class VerletFysiikka.
      */
+//    @Test
+//    public void testStep() {
+//        System.out.println("step");
+//        VerletFysiikka instance = null;
+//        instance.step();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+    
     @Test
-    public void testStep() {
-        System.out.println("step");
-        VerletFysiikka instance = null;
-        instance.step();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void NewtonI() {
+        aurinkokunta.add(aurinko);
+        fysiikka = new VerletFysiikka(10,aurinkokunta);
     }
 }
