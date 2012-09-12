@@ -22,14 +22,14 @@ public class VerletFysiikka {
     }
     
     public double acceleration(Pallo p, int dim) {
-        double f = 0;
+        double a = 0;
         for (Pallo toinen : pallot) {
             if (p==toinen) {
                 continue;
             }
-            f += G*p.getMass()*toinen.getMass()/pow(p.getX(dim)-toinen.getX(dim),2);
+            a += G*toinen.getMass()/pow(p.getX(dim)-toinen.getX(dim),2);
         }
-        return f/p.getMass();
+        return a;
     }
     
     public double distance(Pallo p1, Pallo p2) {

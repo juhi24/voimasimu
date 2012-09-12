@@ -13,6 +13,15 @@ public class Pallo {
     double[] x = new double[2];
     double[] v = new double[2];
 
+    /**
+     * Alusta Pallo.
+     * 
+     * @param mass  kappaleen massa
+     * @param x     keskipisteen x-koordinaatti
+     * @param y     keskipisteen y-koordinaatti
+     * @param v_x   nopeuden x-komponentti
+     * @param v_y   nopeuden y-komponentti
+     */
     public Pallo(double mass, double x, double y, double v_x, double v_y) {
         this.x[0]=x;
         this.x[1]=y;
