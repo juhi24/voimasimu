@@ -92,5 +92,8 @@ public class VerletFysiikkaTest {
     public void NewtonI() {
         aurinkokunta.add(aurinko);
         fysiikka = new VerletFysiikka(10,aurinkokunta);
+        fysiikka.step();
+        assertEquals(0,aurinko.getX(0),0.001);
+        assertEquals(0,aurinko.getX(1),0.001);
     }
 }
