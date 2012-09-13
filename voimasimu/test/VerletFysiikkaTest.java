@@ -69,11 +69,10 @@ public class VerletFysiikkaTest {
         aurinkokunta.add(aurinko);
         aurinkokunta.add(planeetta);
         fysiikka = new VerletFysiikka(1,aurinkokunta);
-        double expResult = 100;
+        double expResult = 100.0;
         double result = fysiikka.distance(aurinko, planeetta);
-        assertEquals(expResult, result, 0.01);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println(result);
+        assertEquals(expResult, result, 0.001);
     }
 
     /**
@@ -89,11 +88,37 @@ public class VerletFysiikkaTest {
 //    }
     
     @Test
-    public void NewtonI() {
+    public void testNewtonI_static() {
+        System.out.println("Newton I static");
         aurinkokunta.add(aurinko);
         fysiikka = new VerletFysiikka(10,aurinkokunta);
         fysiikka.step();
+        System.out.println(fysiikka.force(aurinko, 0));
+        System.out.println(fysiikka.force(aurinko, 1));
         assertEquals(0,aurinko.getX(0),0.001);
         assertEquals(0,aurinko.getX(1),0.001);
+    }
+    
+    @Test
+    public void testNewtonI_steady() {
+        System.out.println("Newton I steady movement");
+        aurinkokunta.add(planeetta);
+        fysiikka = new VerletFysiikka(1,aurinkokunta);
+        fysiikka.step();
+        fysiikka.step();
+        assertEquals(0,planeetta.getV(0),0.01);
+        assertEquals(20,planeetta.getV(1),0.01);
+    }
+    
+    @Test
+    public void testNewtonIII() {
+        System.out.println("Newton III");
+        aurinkokunta.add(aurinko);
+        aurinkokunta.add(planeetta);
+        fysiikka = new VerletFysiikka(1,aurinkokunta);
+        System.out.println(fysiikka.force(aurinko, 0));
+        System.out.println(fysiikka.force(planeetta,0));
+        System.out.println(fysiikka.force(aurinko, 1));
+        System.out.println(fysiikka.force(planeetta, 1));
     }
 }

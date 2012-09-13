@@ -23,13 +23,19 @@ public class VerletFysiikka {
     
     public double acceleration(Pallo p, int dim) {
         double a = 0;
+        double r;
         for (Pallo toinen : pallot) {
             if (p==toinen) {
                 continue;
             }
-            a += G*toinen.getMass()/pow(p.getX(dim)-toinen.getX(dim),2);
+            r = p.getX(dim)-toinen.getX(dim);
+            a += -G*toinen.getMass()/pow(r,2)*r/abs(r);
         }
         return a;
+    }
+    
+    public double force(Pallo p, int dim) {
+        return p.getMass()*this.acceleration(p, dim); //F=ma
     }
     
     public double distance(Pallo p1, Pallo p2) {
