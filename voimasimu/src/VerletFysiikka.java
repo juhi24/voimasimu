@@ -34,7 +34,7 @@ public class VerletFysiikka {
                 continue;
             }
             r = p.getX(dim)-toinen.getX(dim);
-            a = -G*toinen.getMass()/pow(distance(p,toinen),2);
+            a = -G*toinen.getMass()/pow(distance(p,toinen),2); //Gravitaatiolaki
             a_dim += a/distance(p,toinen)*r;
         }
         return a_dim;
