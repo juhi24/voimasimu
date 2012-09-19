@@ -16,7 +16,7 @@ public class voimasimu {
      */
     public static void main(String[] args) {
         Pallo aurinko = new Pallo(1000, 0, 0, 0, 0);
-        Pallo planeetta = new Pallo(10, 10, 0, 0, 10);
+        Pallo planeetta = new Pallo(10, 10, 0, 0, 500);
 
         ArrayList<Pallo> aurinkokunta = new ArrayList<Pallo>();
         aurinkokunta.add(aurinko);
@@ -24,7 +24,7 @@ public class voimasimu {
 
         VerletFysiikka fysiikka = new VerletFysiikka(0.001, aurinkokunta);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 50; i++) {
             System.out.println("P: x=" + planeetta.getX(0) + " y=" + planeetta.getX(1));
             fysiikka.step();
         }
