@@ -11,9 +11,13 @@ import java.util.ArrayList;
  * @author jussi24
  */
 public class VerletFysiikka {
-    double G;
-    double dt;
-    ArrayList<Pallo> pallot;
+    private double G;
+    private double dt;
+    private ArrayList<Pallo> pallot;
+
+    public ArrayList<Pallo> getPallot() {
+        return pallot;
+    }
 
     public VerletFysiikka(double dt, ArrayList<Pallo> pallot) {
         this.G = 6;

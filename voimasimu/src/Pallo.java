@@ -8,10 +8,10 @@
  * @author jussi24
  */
 public class Pallo {
-    double mass;
+    private double mass;
     //int radius;
-    double[] x = new double[2];
-    double[] v = new double[2];
+    private double[] x = new double[2];
+    private double[] v = new double[2];
 
     /**
      * Alusta Pallo.

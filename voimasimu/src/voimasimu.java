@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.*;
 
 /*
  * To change this template, choose Tools | Templates
@@ -15,6 +16,9 @@ public class voimasimu {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Simulaattori simu = new Simulaattori();
+        SwingUtilities.invokeLater(simu);
+        
         Pallo aurinko = new Pallo(1000, 0, 0, 0, 0);
         Pallo planeetta = new Pallo(10, 10, 0, 0, 500);
 
