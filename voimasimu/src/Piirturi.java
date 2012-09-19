@@ -14,20 +14,20 @@ import javax.swing.*;
  * @author jussi24
  */
 public class Piirturi extends JPanel {
-    private ArrayList<Pallo> pallot;
+    private Simulaattori simu;
 
-    public Piirturi(ArrayList<Pallo> pallot) {
-        this.pallot = pallot;
+    public Piirturi(Simulaattori simu) {
+        this.simu = simu;
     }
     
     public void paint(Graphics g) {
         super.paint(g);
         
         int x,y,size;
-        for (Pallo p : pallot) {
-            x=(int)round(p.getX(0)*10+200);
-            y=(int)round(p.getX(1)*10+200);
-            size=(int)round(p.getMass()/50.0);
+        for (Pallo p : simu.getFysiikka().getPallot()) {
+            size=(int)round(sqrt(p.getMass()));
+            x=(int)round(p.getX(0)*10+200-size/2);
+            y=(int)round(p.getX(1)*10+200-size/2);
             g.fillOval(x, y, size, size);
         }
     }

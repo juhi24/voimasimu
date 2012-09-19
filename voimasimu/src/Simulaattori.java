@@ -35,8 +35,8 @@ public class Simulaattori implements Runnable {
     }
 
     private void luokomponentit() {
-        Pallo aurinko = new Pallo(1000, 0, 0, 0, 0);
-        Pallo planeetta = new Pallo(1000, 10, 0, 0, 500);
+        Pallo aurinko = new Pallo(500, 0, 0, 0, 0);
+        Pallo planeetta = new Pallo(100, 10, 0, 0, 500);
 
         ArrayList<Pallo> aurinkokunta = new ArrayList<Pallo>();
         aurinkokunta.add(aurinko);
@@ -44,7 +44,7 @@ public class Simulaattori implements Runnable {
 
         fysiikka = new VerletFysiikka(0.001, aurinkokunta);
         
-        piirturi = new Piirturi(fysiikka.getPallot());
+        piirturi = new Piirturi(this);
         Container pohja = ikkuna.getContentPane();
         pohja.add(piirturi);
         
