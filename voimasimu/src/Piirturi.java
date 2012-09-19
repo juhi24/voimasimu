@@ -26,8 +26,8 @@ public class Piirturi extends JPanel {
         int x,y,size;
         for (Pallo p : simu.getFysiikka().getPallot()) {
             size=(int)round(sqrt(p.getMass()));
-            x=(int)round(p.getX(0)*10+200-size/2);
-            y=(int)round(p.getX(1)*10+200-size/2);
+            x=(int)round(p.getX(0)*10+simu.getLeveys()/2-size/2);
+            y=(int)round(p.getX(1)*10+simu.getKorkeus()/2-size/2);
             g.fillOval(x, y, size, size);
         }
     }
