@@ -34,8 +34,8 @@ public class Simulaattori implements Runnable {
 
     @Override
     public void run() {
-        leveys = 600;
-        korkeus = 500;
+        leveys = 1000;
+        korkeus = 800;
         ikkuna = new JFrame("Gravitaatiosimulaattori");
         ikkuna.setPreferredSize(new Dimension(leveys, korkeus));
 
@@ -49,12 +49,14 @@ public class Simulaattori implements Runnable {
     }
 
     private void luokomponentit() {
-        Pallo aurinko = new Pallo(500, 0, 0, 0, 0);
-        Pallo planeetta = new Pallo(100, 10, 0, 0, 500);
+        Pallo aurinko = new Pallo(1000, 0, 0, 0, 0);
+        Pallo planeetta = new Pallo(80, 35, 0, 0, 400);
+        Pallo murikka = new Pallo(40, -10, 0, 0, -800);
 
         ArrayList<Pallo> aurinkokunta = new ArrayList<Pallo>();
         aurinkokunta.add(aurinko);
         aurinkokunta.add(planeetta);
+        aurinkokunta.add(murikka);
 
         fysiikka = new VerletFysiikka(0.001, aurinkokunta);
 
@@ -69,7 +71,7 @@ public class Simulaattori implements Runnable {
 
     private void otaAskel() {
         fysiikka.step();
-        ajastin = new Timer(100, new AjastimenKuuntelija(this));
+        ajastin = new Timer(10, new AjastimenKuuntelija(this));
         ajastin.start();
         piirturi.repaint();
     }
