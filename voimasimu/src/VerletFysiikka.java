@@ -12,10 +12,10 @@ import java.util.ArrayList;
  */
 public class VerletFysiikka {
     double G;
-    int dt;
+    double dt;
     ArrayList<Pallo> pallot;
 
-    public VerletFysiikka(int dt, ArrayList<Pallo> pallot) {
+    public VerletFysiikka(double dt, ArrayList<Pallo> pallot) {
         this.G = 6;
         this.dt = dt;
         this.pallot = pallot;
