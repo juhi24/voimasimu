@@ -35,6 +35,8 @@ public class VerletFysiikka {
     public double distance(Pallo p1, Pallo p2) {
         return sqrt(pow(p1.getX(0)-p2.getX(0),2) + pow(p1.getX(1)-p2.getX(1),2));
     }
+    
+    
 
     public void step() {
         double a_now,a_next;
