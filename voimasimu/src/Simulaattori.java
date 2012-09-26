@@ -20,6 +20,10 @@ public class Simulaattori implements Runnable {
     private int leveys;
     private int korkeus;
 
+    public Simulaattori(VerletFysiikka fysiikka) {
+        this.fysiikka=fysiikka;
+    }
+
     public VerletFysiikka getFysiikka() {
         return fysiikka;
     }
@@ -49,17 +53,6 @@ public class Simulaattori implements Runnable {
     }
 
     private void luokomponentit() {
-        Pallo aurinko = new Pallo(1000, 0, 0, 0, 0);
-        Pallo planeetta = new Pallo(80, 35, 0, 0, 400);
-        Pallo murikka = new Pallo(40, -10, 0, 0, -800);
-
-        ArrayList<Pallo> aurinkokunta = new ArrayList<Pallo>();
-        aurinkokunta.add(aurinko);
-        aurinkokunta.add(planeetta);
-        aurinkokunta.add(murikka);
-
-        fysiikka = new VerletFysiikka(0.001, aurinkokunta);
-
         piirturi = new Piirturi(this);
         Container pohja = ikkuna.getContentPane();
         pohja.add(piirturi);

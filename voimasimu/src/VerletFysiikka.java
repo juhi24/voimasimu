@@ -52,7 +52,7 @@ public class VerletFysiikka {
         double a_now,a_next;
         for (Pallo p : pallot) {
             for (int dim=0; dim<2; dim++) {
-                //velocity verlet algoritmi:
+                //velocity verlet -algoritmi:
                 a_now=acceleration(p, dim);
                 p.setX(p.getX(dim) + p.getV(dim)*dt + 0.5*a_now*dt*dt, dim);
                 a_next=acceleration(p, dim);

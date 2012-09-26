@@ -16,7 +16,7 @@ public class voimasimu {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Simulaattori simu = new Simulaattori();
-        SwingUtilities.invokeLater(simu);
+        Fysiikkalomake lomake = new Fysiikkalomake();
+        SwingUtilities.invokeLater(lomake);
     }
 }
