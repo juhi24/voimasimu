@@ -47,35 +47,60 @@ public class Fysiikkalomake implements Runnable {
         JLabel massaTxt = new JLabel("Massa: ");
         JTextField massaField = new JTextField();
         JLabel sijaintiTxt = new JLabel("Sijainti: ");
-        JTextField xField = new JTextField();
+        JLabel xTxt = new JLabel(" x");
+        JLabel yTxt = new JLabel(" y");
+        JTextField xField = new JTextField(5);
+        JTextField yField = new JTextField(5);
         JLabel nopeusTxt = new JLabel("Alkunopeus: ");
-        JTextField v_xField = new JTextField();
-        JButton startNappi = new JButton("Käynnistä simulaatio");
+        JTextField v_xField = new JTextField(5);
+        JTextField v_yField = new JTextField(5);
+        JButton lisaaNappi = new JButton("Lisää pallo");
+        JButton startNappi = new JButton("Käynnistä simulaatio!");
         
         c.gridx=0;
         c.gridy=0;
         ruutu.add(massaTxt,c);
         
         c.gridx=1;
+        c.gridwidth=2;
         ruutu.add(massaField,c);
         
+        c.gridx=1;
+        c.gridy++;
+        c.gridwidth=1;
+        ruutu.add(xTxt,c);
+        
+        c.gridx=2;
+        ruutu.add(yTxt,c);
+        
         c.gridx=0;
-        c.gridy=1;
+        c.gridy++;
         ruutu.add(sijaintiTxt,c);
         
         c.gridx=1;
         ruutu.add(xField,c);
         
+        c.gridx=2;
+        ruutu.add(yField,c);
+        
         c.gridx=0;
-        c.gridy=2;
+        c.gridy++;
         ruutu.add(nopeusTxt,c);
         
         c.gridx=1;
         ruutu.add(v_xField,c);
         
-        c.gridx=0;
-        c.gridy=3;
+        c.gridx=2;
+        ruutu.add(v_yField,c);
+        
+        c.gridx=1;
+        c.gridy++;
         c.gridwidth=2;
+        ruutu.add(lisaaNappi,c);
+        
+        c.gridx=0;
+        c.gridy++;
+        c.gridwidth=3;
         ruutu.add(startNappi,c);
         
         Pallo aurinko = new Pallo(1000, 0, 0, 0, 0);
