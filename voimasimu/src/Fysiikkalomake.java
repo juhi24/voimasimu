@@ -1,7 +1,9 @@
 
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 
 /*
  * To change this template, choose Tools | Templates
@@ -44,16 +46,33 @@ public class Fysiikkalomake implements Runnable {
         
         c.fill = GridBagConstraints.BOTH;
         
+        DecimalFormat positFormaatti = new DecimalFormat("#0.0#;(#)");
+        NumberFormatter positFormaattori = new NumberFormatter(positFormaatti);
+        positFormaattori.setAllowsInvalid(false);
+        DecimalFormat lukuFormaatti = new DecimalFormat("#0.0#");
+        NumberFormatter lukuFormaattori = new NumberFormatter(lukuFormaatti);
+        lukuFormaattori.setAllowsInvalid(false);
+        
+        double alkuarvo=0.0;
+        int kentanLeveys=5;
+        
         JLabel massaTxt = new JLabel("Massa: ");
-        JTextField massaField = new JTextField();
+        JFormattedTextField massaField = new JFormattedTextField(positFormaatti);
+        massaField.setValue(new Double(alkuarvo));
         JLabel sijaintiTxt = new JLabel("Sijainti: ");
         JLabel xTxt = new JLabel(" x");
         JLabel yTxt = new JLabel(" y");
-        JTextField xField = new JTextField(5);
-        JTextField yField = new JTextField(5);
+        JFormattedTextField xField = new JFormattedTextField(lukuFormaatti);
+        xField.setValue(new Double(alkuarvo));
+        xField.setColumns(kentanLeveys);
+        JFormattedTextField yField = new JFormattedTextField(lukuFormaatti);
+        yField.setValue(new Double(alkuarvo));
+        yField.setColumns(kentanLeveys);
         JLabel nopeusTxt = new JLabel("Alkunopeus: ");
-        JTextField v_xField = new JTextField(5);
-        JTextField v_yField = new JTextField(5);
+        JFormattedTextField v_xField = new JFormattedTextField(lukuFormaatti);
+        v_xField.setValue(new Double(alkuarvo));
+        JFormattedTextField v_yField = new JFormattedTextField(lukuFormaatti);
+        v_yField.setValue(new Double(alkuarvo));
         JButton lisaaNappi = new JButton("Lisää pallo");
         JButton startNappi = new JButton("Käynnistä simulaatio!");
         
@@ -116,6 +135,7 @@ public class Fysiikkalomake implements Runnable {
         
         simu = new Simulaattori(fysiikka);
         
-        startNappi.addActionListener(new startKuuntelija(simu));
+        lisaaNappi.addActionListener(new LisaysKuuntelija(aurinkokunta,massaField,xField,yField,v_xField,v_yField));
+        startNappi.addActionListener(new StartKuuntelija(simu));
     }
 }
