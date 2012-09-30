@@ -25,7 +25,7 @@ public class VerletFysiikka {
         this.pallot = pallot;
     }
     
-    public double acceleration(Pallo p, int dim) {
+    private double acceleration(Pallo p, int dim) {
         double a = 0;
         double a_dim = 0;
         double r;

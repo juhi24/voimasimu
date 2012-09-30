@@ -18,6 +18,44 @@ public class Fysiikkalomake implements Runnable {
    private JFrame ikkuna;
    private Simulaattori simu;
    private VerletFysiikka fysiikka;
+   private ArrayList<Pallo> aurinkokunta ;
+   private JFormattedTextField massaField;
+   private JFormattedTextField xField;
+   private JFormattedTextField yField;
+   private JFormattedTextField v_xField;
+   private JFormattedTextField v_yField;
+
+    public VerletFysiikka getFysiikka() {
+        return fysiikka;
+    }
+   
+   public JFrame getIkkuna() {
+       return ikkuna;
+   }
+
+    public ArrayList<Pallo> getAurinkokunta() {
+        return aurinkokunta;
+    }
+
+    public double getMassa() {
+        return fieldGetDouble(massaField);
+    }
+    
+    public double getX() {
+        return fieldGetDouble(xField);
+    }
+    
+    public double getY() {
+        return fieldGetDouble(yField);
+    }
+    
+    public double getV_x() {
+        return fieldGetDouble(v_xField);
+    }
+    
+    public double getV_y() {
+        return fieldGetDouble(v_yField);
+    }
 
     public Fysiikkalomake() {
     }
@@ -35,10 +73,6 @@ public class Fysiikkalomake implements Runnable {
         ikkuna.setVisible(true);
     }
 
-    public JFrame getIkkuna() {
-        return ikkuna;
-    }
-
     private void luoKomponentit(Container ruutu) {
         GridBagLayout asettelu = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
@@ -53,25 +87,26 @@ public class Fysiikkalomake implements Runnable {
         NumberFormatter lukuFormaattori = new NumberFormatter(lukuFormaatti);
         lukuFormaattori.setAllowsInvalid(false);
         
+        double alkumassa=100.0;
         double alkuarvo=0.0;
         int kentanLeveys=5;
         
         JLabel massaTxt = new JLabel("Massa: ");
-        JFormattedTextField massaField = new JFormattedTextField(positFormaatti);
-        massaField.setValue(new Double(alkuarvo));
+        massaField = new JFormattedTextField(positFormaatti);
+        massaField.setValue(new Double(alkumassa));
         JLabel sijaintiTxt = new JLabel("Sijainti: ");
         JLabel xTxt = new JLabel(" x");
         JLabel yTxt = new JLabel(" y");
-        JFormattedTextField xField = new JFormattedTextField(lukuFormaatti);
+        xField = new JFormattedTextField(lukuFormaatti);
         xField.setValue(new Double(alkuarvo));
         xField.setColumns(kentanLeveys);
-        JFormattedTextField yField = new JFormattedTextField(lukuFormaatti);
+        yField = new JFormattedTextField(lukuFormaatti);
         yField.setValue(new Double(alkuarvo));
         yField.setColumns(kentanLeveys);
         JLabel nopeusTxt = new JLabel("Alkunopeus: ");
-        JFormattedTextField v_xField = new JFormattedTextField(lukuFormaatti);
+        v_xField = new JFormattedTextField(lukuFormaatti);
         v_xField.setValue(new Double(alkuarvo));
-        JFormattedTextField v_yField = new JFormattedTextField(lukuFormaatti);
+        v_yField = new JFormattedTextField(lukuFormaatti);
         v_yField.setValue(new Double(alkuarvo));
         JButton lisaaNappi = new JButton("Lisää pallo");
         JButton startNappi = new JButton("Käynnistä simulaatio!");
@@ -122,11 +157,12 @@ public class Fysiikkalomake implements Runnable {
         c.gridwidth=3;
         ruutu.add(startNappi,c);
         
+        //Testikappaleet
         Pallo aurinko = new Pallo(1000, 0, 0, 0, 0);
         Pallo planeetta = new Pallo(80, 35, 0, 0, 400);
         Pallo murikka = new Pallo(40, -10, 0, 0, -800);
 
-        ArrayList<Pallo> aurinkokunta = new ArrayList<>();
+        aurinkokunta = new ArrayList<>();
         aurinkokunta.add(aurinko);
         aurinkokunta.add(planeetta);
         aurinkokunta.add(murikka);
@@ -135,7 +171,11 @@ public class Fysiikkalomake implements Runnable {
         
         simu = new Simulaattori(fysiikka);
         
-        lisaaNappi.addActionListener(new LisaysKuuntelija(aurinkokunta,massaField,xField,yField,v_xField,v_yField));
+        lisaaNappi.addActionListener(new LisaysKuuntelija(this));
         startNappi.addActionListener(new StartKuuntelija(simu));
+    }
+    
+    private double fieldGetDouble(JFormattedTextField field) {
+        return ((Number)field.getValue()).doubleValue();
     }
 }
