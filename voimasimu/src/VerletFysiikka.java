@@ -11,6 +11,11 @@ public class VerletFysiikka {
     private double dt;
     private ArrayList<Pallo> pallot;
 
+    /**
+     * Palauttaa simuloitavat kappaleet.
+     *
+     * @return simuloitavat kappaleet
+     */
     public ArrayList<Pallo> getPallot() {
         return pallot;
     }

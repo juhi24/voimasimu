@@ -29,26 +29,50 @@ public class Pallo {
         this.mass = mass;
     }
 
+    /**
+     *
+     * @return kappaleen massa
+     */
     public double getMass() {
         return mass;
     }
-    
-    public double[] getX() {
-        return x;
-    }
 
+    /**
+     * Palauttaa pallon sijainnin x- tai y-komponentin.
+     *
+     * @param dimension komponentti x arvolla 0 tai y arvolla 1
+     * @return pyydetty paikkakomponentti
+     */
     public double getX(int dimension) {
         return x[dimension];
     }
 
+    /**
+     * Palauttaa pallon nopeuden x- tai y-komponentin.
+     *
+     * @param dimension komponentti x arvolla 0 tai y arvolla 1
+     * @return pyydetty nopeuskomponentti
+     */
     public double getV(int dimension) {
         return v[dimension];
     }
 
+    /**
+     * Aseta pallon paikkakomponentti.
+     *
+     * @param value asetettava arvo
+     * @param dimension komponentti x arvolla 0 tai y arvolla 1
+     */
     public void setX(double value, int dimension) {
         this.x[dimension] = value;
     }
     
+    /**
+     * Aseta pallon nopeuskomponentti.
+     *
+     * @param value asetettava arvo
+     * @param dimension komponentti x arvolla 0 tai y arvolla 1
+     */
     public void setV(double value, int dimension) {
         this.v[dimension] = value;
     }

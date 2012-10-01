@@ -16,6 +16,7 @@ public class Simulaattori implements Runnable {
     private int korkeus;
 
     /**
+     * Alusta simulaattori fysiikkamoottorilla.
      *
      * @param fysiikka
      */
@@ -25,7 +26,7 @@ public class Simulaattori implements Runnable {
 
     /**
      *
-     * @return
+     * @return fysiikka-olio
      */
     public VerletFysiikka getFysiikka() {
         return fysiikka;
@@ -33,7 +34,7 @@ public class Simulaattori implements Runnable {
 
     /**
      *
-     * @return
+     * @return piirtoikkunan korkeus
      */
     public int getKorkeus() {
         return korkeus;
@@ -41,14 +42,14 @@ public class Simulaattori implements Runnable {
 
     /**
      *
-     * @return
+     * @return piirtoikkunan leveys
      */
     public int getLeveys() {
         return leveys;
     }
 
     /**
-     *
+     * Käynnistä simulaatio.
      */
     @Override
     public void run() {

@@ -16,11 +16,16 @@ public class Piirturi extends JPanel {
     private Simulaattori simu;
     private double pituusSkaala;
 
+    /**
+     *
+     * @param simu
+     */
     public Piirturi(Simulaattori simu) {
         this.simu = simu;
         this.pituusSkaala=4;
     }
     
+    @Override
     public void paint(Graphics g) {
         super.paint(g);
         
