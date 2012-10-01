@@ -2,13 +2,9 @@
 import static java.lang.Math.*;
 import java.util.ArrayList;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
- * @author jussi24
+ * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */
 public class VerletFysiikka {
     private double G;
@@ -19,6 +15,12 @@ public class VerletFysiikka {
         return pallot;
     }
 
+    /**
+     * Alusta fysiikkamoottori.
+     *
+     * @param dt aika-askeleen pituus
+     * @param pallot simuloitavat kappaleet
+     */
     public VerletFysiikka(double dt, ArrayList<Pallo> pallot) {
         this.G = 6;
         this.dt = dt;
@@ -26,7 +28,7 @@ public class VerletFysiikka {
     }
     
     private double acceleration(Pallo p, int dim) {
-        double a = 0;
+        double a;
         double a_dim = 0;
         double r;
         for (Pallo toinen : pallot) {
@@ -40,14 +42,20 @@ public class VerletFysiikka {
         return a_dim;
     }
     
-    public double force(Pallo p, int dim) {
-        return p.getMass()*this.acceleration(p, dim); //F=ma
-    }
-    
+    /**
+     * Kahden kappaleen välinen etäisyys.
+     *
+     * @param p1 kappale 1
+     * @param p2 kappale 2
+     * @return kappaleiden 1 ja 2 välinen etäisyys
+     */
     public double distance(Pallo p1, Pallo p2) {
         return sqrt(pow(p1.getX(0)-p2.getX(0),2) + pow(p1.getX(1)-p2.getX(1),2));
     }
 
+    /**
+     * Simuloi yksi aika-askel eteenpäin.
+     */
     public void step() {
         double a_now,a_next;
         for (Pallo p : pallot) {

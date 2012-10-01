@@ -35,7 +35,7 @@ public class VerletFysiikkaTest {
     
     @Before
     public void setUp() {
-        aurinkokunta = new ArrayList<Pallo>();
+        aurinkokunta = new ArrayList<>();
         aurinko = new Pallo(1000,0,0,0,0);
         planeetta = new Pallo(10,100,0,0,20);
     }
@@ -93,8 +93,6 @@ public class VerletFysiikkaTest {
         aurinkokunta.add(aurinko);
         fysiikka = new VerletFysiikka(10,aurinkokunta);
         fysiikka.step();
-        System.out.println(fysiikka.force(aurinko, 0));
-        System.out.println(fysiikka.force(aurinko, 1));
         assertEquals(0,aurinko.getX(0),0.001);
         assertEquals(0,aurinko.getX(1),0.001);
     }
@@ -116,9 +114,5 @@ public class VerletFysiikkaTest {
         aurinkokunta.add(aurinko);
         aurinkokunta.add(planeetta);
         fysiikka = new VerletFysiikka(1,aurinkokunta);
-        System.out.println(fysiikka.force(aurinko, 0));
-        System.out.println(fysiikka.force(planeetta,0));
-        System.out.println(fysiikka.force(aurinko, 1));
-        System.out.println(fysiikka.force(planeetta, 1));
     }
 }

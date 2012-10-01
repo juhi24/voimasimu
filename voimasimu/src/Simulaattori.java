@@ -2,13 +2,9 @@
 import java.awt.*;
 import javax.swing.*;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
- * @author jussi24
+ * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */
 public class Simulaattori implements Runnable {
 
@@ -19,22 +15,41 @@ public class Simulaattori implements Runnable {
     private int leveys;
     private int korkeus;
 
+    /**
+     *
+     * @param fysiikka
+     */
     public Simulaattori(VerletFysiikka fysiikka) {
         this.fysiikka=fysiikka;
     }
 
+    /**
+     *
+     * @return
+     */
     public VerletFysiikka getFysiikka() {
         return fysiikka;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getKorkeus() {
         return korkeus;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLeveys() {
         return leveys;
     }
 
+    /**
+     *
+     */
     @Override
     public void run() {
         leveys = 1000;
@@ -68,6 +83,11 @@ public class Simulaattori implements Runnable {
         piirturi.repaint();
     }
 
+    /**
+     * Pysäyttää ajastimen ja suorittaa metodin otaAskel().
+     * 
+     * @see otaAskel()
+     */
     public void seuraavaAskel() {
         ajastin.stop();
         otaAskel();

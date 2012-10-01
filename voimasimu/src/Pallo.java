@@ -5,11 +5,10 @@
 
 /**
  *
- * @author jussi24
+ * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */
 public class Pallo {
     private double mass;
-    //int radius;
     private double[] x = new double[2];
     private double[] v = new double[2];
 

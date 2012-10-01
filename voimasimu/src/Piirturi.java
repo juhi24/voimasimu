@@ -1,7 +1,6 @@
 
-import static java.lang.Math.*;
 import java.awt.*;
-import java.util.ArrayList;
+import static java.lang.Math.*;
 import javax.swing.*;
 
 /*
@@ -11,7 +10,7 @@ import javax.swing.*;
 
 /**
  *
- * @author jussi24
+ * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */
 public class Piirturi extends JPanel {
     private Simulaattori simu;
