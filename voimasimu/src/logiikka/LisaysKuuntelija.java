@@ -1,25 +1,36 @@
+package logiikka;
 
+
+import UI.Fysiikkalomake;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
+ * Kuuntelee "lisää kappale"-nappia ja luo Pallo-olioita lomakkeen
+ * tietojen perusteella.
  *
- * @author jussi24
+ * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */
-class LisaysKuuntelija implements ActionListener {
+public class LisaysKuuntelija implements ActionListener {
     private Fysiikkalomake lomake;
 
+    /**
+     * Konstruoi kuuntelijan liittäen sen isäntälomakkeeseen.
+     *
+     * @param lomake isäntälomake
+     */
     public LisaysKuuntelija(Fysiikkalomake lomake) {
         this.lomake = lomake;
     }
 
+    /**
+     * Luo kappaleen lomakkeen tietojen perusteella tai antaa
+     * käyttäjälle virhekoodin mukaisen virheilmoituksen.
+     *
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Pallo kappale = new Pallo(lomake.getMassa(), lomake.getX(), lomake.getY(), lomake.getV_x(), lomake.getV_y());

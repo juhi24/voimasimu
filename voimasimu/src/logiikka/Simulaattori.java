@@ -1,8 +1,15 @@
+package logiikka;
 
+
+import UI.Piirturi;
 import java.awt.*;
 import javax.swing.*;
 
 /**
+ * Keskusluokka, joka toimii fysiikkaluokan ja piirturin välissä.
+ * 
+ * Luo piirtoikkunan ja kutsuu siihen piirturin.
+ * Hallitsee ajastinta ja lähettää piirturille piirtokomennot.
  *
  * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */
@@ -18,7 +25,7 @@ public class Simulaattori implements Runnable {
     /**
      * Alusta simulaattori fysiikkamoottorilla.
      *
-     * @param fysiikka
+     * @param fysiikka simuloitava fysiikka
      */
     public Simulaattori(VerletFysiikka fysiikka) {
         this.fysiikka=fysiikka;

@@ -1,8 +1,14 @@
+package logiikka;
 
+
+import UI.Fysiikkalomake;
 import javax.swing.SwingUtilities;
 
 
 /**
+ * Kutsuu ja käynnistää lomakkeen.
+ * 
+ * @see Fysiikkalomake
  *
  * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */

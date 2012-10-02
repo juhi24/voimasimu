@@ -1,8 +1,12 @@
+package logiikka;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
+import logiikka.VerletFysiikka;
+import logiikka.Pallo;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;

@@ -1,14 +1,18 @@
+package UI;
+
 
 import java.awt.*;
 import static java.lang.Math.*;
 import javax.swing.*;
+import logiikka.Pallo;
+import logiikka.Simulaattori;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
+ * Piirtää simulaation reaaliajassa.
+ * 
+ * Etäisyyksien skaalaus on sisäänrakennettuna parametrisointina.
+ * Pallojen koko määräytyy niiden massojen mukaan.
  *
  * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */
@@ -17,14 +21,22 @@ public class Piirturi extends JPanel {
     private double pituusSkaala;
 
     /**
+     * Yhdistää piirturin isäntäsimulaattoriin 
+     * ja asettaa etäisyyksien skaalauksen.
      *
-     * @param simu
+     * @param simu isäntäsimulaattori
      */
     public Piirturi(Simulaattori simu) {
         this.simu = simu;
         this.pituusSkaala=4;
     }
     
+    /**
+     * Piirtää pallot piirtoalustalle niiden sijaintien
+     * ja massojen perusteella.
+     *
+     * @param g grafiikkaolio
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);

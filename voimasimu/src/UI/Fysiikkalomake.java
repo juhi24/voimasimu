@@ -1,18 +1,17 @@
+package UI;
+
 
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+import logiikka.*;
 
 /**
+ * Lomakkeella voi lisätä kappaleita simulaatioon ja käynnistää sen.
  *
- * @author jussi24
+ * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */
 public class Fysiikkalomake implements Runnable {
    private JFrame ikkuna;
