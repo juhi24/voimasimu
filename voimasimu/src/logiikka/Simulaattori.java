@@ -1,15 +1,14 @@
 package logiikka;
 
-
 import UI.Piirturi;
 import java.awt.*;
 import javax.swing.*;
 
 /**
  * Keskusluokka, joka toimii fysiikkaluokan ja piirturin välissä.
- * 
- * Luo piirtoikkunan ja kutsuu siihen piirturin.
- * Hallitsee ajastinta ja lähettää piirturille piirtokomennot.
+ *
+ * Luo piirtoikkunan ja kutsuu siihen piirturin. Hallitsee ajastinta ja lähettää
+ * piirturille piirtokomennot.
  *
  * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */
@@ -28,7 +27,7 @@ public class Simulaattori implements Runnable {
      * @param fysiikka simuloitava fysiikka
      */
     public Simulaattori(VerletFysiikka fysiikka) {
-        this.fysiikka=fysiikka;
+        this.fysiikka = fysiikka;
     }
 
     /**
@@ -79,7 +78,7 @@ public class Simulaattori implements Runnable {
         Container pohja = ikkuna.getContentPane();
         pohja.add(piirturi);
     }
-    
+
     private void uusiSimulaatio() {
         otaAskel();
     }
@@ -92,12 +91,13 @@ public class Simulaattori implements Runnable {
     }
 
     /**
-     * Pysäyttää ajastimen ja suorittaa metodin otaAskel().
-     * 
-     * @see otaAskel()
+     * Pysäyttää ajastimen ja suorittaa metodin ja antaa käskyn seuraavan
+     * aika-askeleen ottamiseen.
      */
     public void seuraavaAskel() {
-        ajastin.stop();
-        otaAskel();
+        if (ajastin!=null && ajastin.isRunning()) {
+            ajastin.stop();
+            otaAskel();
+        }
     }
 }
