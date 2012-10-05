@@ -32,30 +32,57 @@ public class Fysiikkalomake implements Runnable {
        return ikkuna;
    }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Pallo> getAurinkokunta() {
         return aurinkokunta;
     }
 
+    /**
+     *
+     * @return massan arvo lomakkeelta
+     */
     public double getMassa() {
         return fieldGetDouble(massaField);
     }
     
+    /**
+     *
+     * @return x-koordinaatti lomakkeelta
+     */
     public double getX() {
         return fieldGetDouble(xField);
     }
     
+    /**
+     *
+     * @return y-koordinaatti lomakkeelta
+     */
     public double getY() {
         return fieldGetDouble(yField);
     }
     
+    /**
+     *
+     * @return alkunopeuden x-komponentti lomakkeelta
+     */
     public double getV_x() {
         return fieldGetDouble(v_xField);
     }
     
+    /**
+     *
+     * @return alkunopeuden y-komponentti lomakkeelta
+     */
     public double getV_y() {
         return fieldGetDouble(v_yField);
     }
 
+    /**
+     * Tyhjä konstruktori
+     */
     public Fysiikkalomake() {
     }
 
