@@ -74,7 +74,7 @@ public class VerletFysiikkaTest {
         aurinkokunta.add(planeetta);
         fysiikka = new VerletFysiikka(1,aurinkokunta);
         double expResult = 100.0;
-        double result = fysiikka.distance(aurinko, planeetta);
+        double result = fysiikka.etaisyys(aurinko, planeetta);
         System.out.println(result);
         assertEquals(expResult, result, 0.001);
     }

@@ -23,6 +23,17 @@ public class Fysiikkalomake implements Runnable {
    private JFormattedTextField yField;
    private JFormattedTextField v_xField;
    private JFormattedTextField v_yField;
+   private String[] args;
+
+    /**
+     * Tyhjä konstruktori
+     */
+    public Fysiikkalomake() {
+    }
+
+    public Fysiikkalomake(String[] args) {
+        this.args = args;
+    }
 
     public VerletFysiikka getFysiikka() {
         return fysiikka;
@@ -78,12 +89,6 @@ public class Fysiikkalomake implements Runnable {
      */
     public double getV_y() {
         return fieldGetDouble(v_yField);
-    }
-
-    /**
-     * Tyhjä konstruktori
-     */
-    public Fysiikkalomake() {
     }
 
     @Override
@@ -183,17 +188,12 @@ public class Fysiikkalomake implements Runnable {
         c.gridwidth=3;
         ruutu.add(startNappi,c);
         
-        //Testikappaleet
-        Pallo aurinko = new Pallo(1000, 0, 0, 0, 0);
-        Pallo planeetta = new Pallo(80, 35, 0, 0, 400);
-        Pallo murikka = new Pallo(40, -10, 0, 0, -800);
-
         aurinkokunta = new ArrayList<>();
-        aurinkokunta.add(aurinko);
-        aurinkokunta.add(planeetta);
-        aurinkokunta.add(murikka);
 
         fysiikka = new VerletFysiikka(0.001, aurinkokunta);
+        
+        PalloLogiikka logiikka = new PalloLogiikka(this);
+        logiikka.pallotTiedostosta(args, aurinkokunta);
         
         simu = new Simulaattori(fysiikka);
         
