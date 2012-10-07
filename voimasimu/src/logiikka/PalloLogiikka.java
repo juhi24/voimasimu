@@ -50,6 +50,7 @@ public class PalloLogiikka {
         if (args[0].isEmpty()) {
             return;
         }
+        int rivinro = 0;
         try {
             String tiedostonimi = args[0];
             FileInputStream fstream = new FileInputStream(tiedostonimi);
@@ -57,7 +58,6 @@ public class PalloLogiikka {
                 BufferedReader lukija = new BufferedReader(new InputStreamReader(in));
                 String rivi;
                 String[] paloiteltu;
-                int rivinro = 0;
                 double m, x, y, v_x, v_y;
                 while ((rivi = lukija.readLine()) != null) {
                     rivinro++;
@@ -81,7 +81,7 @@ public class PalloLogiikka {
                 }
             }
         } catch (IOException | NumberFormatException e) {
-            System.err.println("Virhe: " + e.getMessage());
+            System.err.println("Rivi " + rivinro + ": VIRHE! " + e.getMessage());
         }
     }
 }
