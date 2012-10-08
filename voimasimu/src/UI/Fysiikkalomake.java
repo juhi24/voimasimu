@@ -25,8 +25,21 @@ public class Fysiikkalomake implements Runnable {
    private JFormattedTextField v_yField;
    private String[] args;
    private PalloLogiikka logiikka;
+   private JButton lisaaNappi;
    private JButton startNappi;
    private JLabel laskuri;
+   private JLabel nopeusTxt;
+   private JLabel sijaintiTxt;
+   private JLabel xTxt;
+   private JLabel yTxt;
+   private JLabel massaTxt;
+   private DecimalFormat positFormaatti;
+   private NumberFormatter positFormaattori;
+   private DecimalFormat lukuFormaatti;
+   private NumberFormatter lukuFormaattori;
+   private double alkumassa;
+   private double alkuarvo;
+   private int kentanLeveys;
 
     /**
      * Tyhjä konstruktori
@@ -149,39 +162,13 @@ public class Fysiikkalomake implements Runnable {
         c.fill = GridBagConstraints.BOTH;
         
         // Aseta formaattitarkistukset
-        DecimalFormat positFormaatti = new DecimalFormat("#0.0#;(#)");
-        NumberFormatter positFormaattori = new NumberFormatter(positFormaatti);
-        positFormaattori.setAllowsInvalid(false);
-        DecimalFormat lukuFormaatti = new DecimalFormat("#0.0#");
-        NumberFormatter lukuFormaattori = new NumberFormatter(lukuFormaatti);
-        lukuFormaattori.setAllowsInvalid(false);
+        asetaFormaattitarkistukset();
         
-        // Aseta alkuarvot
-        double alkumassa=100.0;
-        double alkuarvo=0.0;
-        int kentanLeveys=5;
+        // Aseta oletusarvot ja parametrit
+        asetaParametrit();
         
         // Luo elementit
-        JLabel massaTxt = new JLabel("Massa: ");
-        massaField = new JFormattedTextField(positFormaatti);
-        massaField.setValue(new Double(alkumassa));
-        JLabel sijaintiTxt = new JLabel("Sijainti: ");
-        JLabel xTxt = new JLabel(" x");
-        JLabel yTxt = new JLabel(" y");
-        laskuri = new JLabel();
-        xField = new JFormattedTextField(lukuFormaatti);
-        xField.setValue(new Double(alkuarvo));
-        xField.setColumns(kentanLeveys);
-        yField = new JFormattedTextField(lukuFormaatti);
-        yField.setValue(new Double(alkuarvo));
-        yField.setColumns(kentanLeveys);
-        JLabel nopeusTxt = new JLabel("Alkunopeus: ");
-        v_xField = new JFormattedTextField(lukuFormaatti);
-        v_xField.setValue(new Double(alkuarvo));
-        v_yField = new JFormattedTextField(lukuFormaatti);
-        v_yField.setValue(new Double(alkuarvo));
-        JButton lisaaNappi = new JButton("Lisää pallo");
-        startNappi = new JButton("Käynnistä simulaatio!");
+        luoElementit();
         
         // Asettele elementit
         c.gridx=0;
@@ -253,5 +240,43 @@ public class Fysiikkalomake implements Runnable {
         fysiikka = new VerletFysiikka(0.001, aurinkokunta);
         logiikka = new PalloLogiikka(this);
         simu = new Simulaattori(fysiikka);
+    }
+
+    private void luoElementit() {
+        massaTxt = new JLabel("Massa: ");
+        massaField = new JFormattedTextField(positFormaatti);
+        massaField.setValue(new Double(alkumassa));
+        sijaintiTxt = new JLabel("Sijainti: ");
+        xTxt = new JLabel(" x");
+        yTxt = new JLabel(" y");
+        laskuri = new JLabel();
+        xField = new JFormattedTextField(lukuFormaatti);
+        xField.setValue(new Double(alkuarvo));
+        xField.setColumns(kentanLeveys);
+        yField = new JFormattedTextField(lukuFormaatti);
+        yField.setValue(new Double(alkuarvo));
+        yField.setColumns(kentanLeveys);
+        nopeusTxt = new JLabel("Alkunopeus: ");
+        v_xField = new JFormattedTextField(lukuFormaatti);
+        v_xField.setValue(new Double(alkuarvo));
+        v_yField = new JFormattedTextField(lukuFormaatti);
+        v_yField.setValue(new Double(alkuarvo));
+        lisaaNappi = new JButton("Lisää pallo");
+        startNappi = new JButton("Käynnistä simulaatio!");
+    }
+
+    private void asetaFormaattitarkistukset() {
+        positFormaatti = new DecimalFormat("#0.0#;(#)");
+        positFormaattori = new NumberFormatter(positFormaatti);
+        positFormaattori.setAllowsInvalid(false);
+        lukuFormaatti = new DecimalFormat("#0.0#");
+        lukuFormaattori = new NumberFormatter(lukuFormaatti);
+        lukuFormaattori.setAllowsInvalid(false);
+    }
+
+    private void asetaParametrit() {
+        alkumassa = 100.0;
+        alkuarvo = 0.0;
+        kentanLeveys = 5;
     }
 }
