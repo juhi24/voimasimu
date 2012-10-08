@@ -34,7 +34,16 @@ public class VerletFysiikka {
         this.pallot = pallot;
     }
     
-    private double kiihtyvyys(Pallo p, int dim) {
+    /**
+     * Laskee kiihtyvyyden x- tai y-komponentin annetulle kappaleelle.
+     * 
+     * Kiihtyvyyden laskemisessa otetaan kaikki muut systeemin kappaleet huomioon.
+     *
+     * @param p kappale, jolle kiihtyvyys lasketaan
+     * @param dim x-komponentti arvolla 0 tai y arvolla 1
+     * @return kappaleen p kiihtyvyys
+     */
+    protected double kiihtyvyys(Pallo p, int dim) {
         double a;
         double a_dim = 0;
         double r;

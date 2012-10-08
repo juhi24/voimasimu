@@ -2,6 +2,8 @@ package logiikka;
 
 import UI.Piirturi;
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -20,6 +22,7 @@ public class Simulaattori implements Runnable {
     private Timer ajastin;
     private int leveys;
     private int korkeus;
+    private boolean pysaytysKasky;
 
     /**
      * Alusta simulaattori fysiikkamoottorilla.
@@ -54,6 +57,18 @@ public class Simulaattori implements Runnable {
         return leveys;
     }
 
+    public Timer getAjastin() {
+        return ajastin;
+    }
+
+    public boolean isPysaytysKasky() {
+        return pysaytysKasky;
+    }
+
+    public void setPysaytysKasky(boolean pysaytysKasky) {
+        this.pysaytysKasky = pysaytysKasky;
+    }
+
     /**
      * Käynnistä simulaatio.
      */
@@ -84,6 +99,9 @@ public class Simulaattori implements Runnable {
     }
 
     private void otaAskel() {
+        if (pysaytysKasky) {
+            return;
+        }
         fysiikka.step();
         ajastin = new Timer(10, new AjastimenKuuntelija(this));
         ajastin.start();
@@ -97,7 +115,7 @@ public class Simulaattori implements Runnable {
     public void seuraavaAskel() {
         if (ajastin!=null && ajastin.isRunning()) {
             ajastin.stop();
-            otaAskel();
-        }
+        } 
+        otaAskel();
     }
 }

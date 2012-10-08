@@ -1,34 +1,50 @@
 package logiikka;
 
-
+import UI.Fysiikkalomake;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Jussi Tiira <jussi.tiira@helsinki.fi>
  */
 public class StartKuuntelija implements ActionListener {
-
+    private Fysiikkalomake lomake;
     private Simulaattori simu;
 
     /**
      * Alusta käynnistysnapin kuuntelija.
      *
+     * @param lomake isäntälomake
      * @param simu käytettävä simulaattoriolio
      */
-    public StartKuuntelija(Simulaattori simu) {
+    public StartKuuntelija(Fysiikkalomake lomake, Simulaattori simu) {
+        this.lomake = lomake;
         this.simu = simu;
     }
 
     /**
-     * Käynnistä simulaatio.
+     * Käynnistä tai keskeytä simulaatio.
      *
      * @param e
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        SwingUtilities.invokeLater(simu);
+        Thread thread = new Thread(simu);
+        if (simu.getAjastin()==null) {
+            System.out.println("ei käynnissä, käynnistetään.");
+            simu.setPysaytysKasky(false);
+            thread.start();
+            lomake.setStartTeksti("Keskeytä simulaatio!");
+        } else if (simu.getAjastin().isRunning()) {
+            simu.setPysaytysKasky(true);
+            lomake.setStartTeksti("Jatka simulaatiota!");
+            System.out.println("seis!");
+        } else {
+            simu.setPysaytysKasky(false);
+            simu.seuraavaAskel();
+            lomake.setStartTeksti("Keskeytä simulaatio!");
+            System.out.println("jatkuu");
+        }
     }
 }

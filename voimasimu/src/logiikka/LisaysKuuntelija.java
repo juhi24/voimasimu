@@ -43,6 +43,7 @@ public class LisaysKuuntelija implements ActionListener {
                 JOptionPane.showMessageDialog(lomake.getIkkuna(),"Kappaleen massakeskipiste on liian lähellä toista kappaletta.", "Virheellinen syöte!", JOptionPane.ERROR_MESSAGE);
                 break;
         }
+        lomake.paivitaLaskuri();
     }
     
 }

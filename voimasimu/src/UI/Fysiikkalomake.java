@@ -24,6 +24,9 @@ public class Fysiikkalomake implements Runnable {
    private JFormattedTextField v_xField;
    private JFormattedTextField v_yField;
    private String[] args;
+   private PalloLogiikka logiikka;
+   private JButton startNappi;
+   private JLabel laskuri;
 
     /**
      * Tyhjä konstruktori
@@ -31,21 +34,33 @@ public class Fysiikkalomake implements Runnable {
     public Fysiikkalomake() {
     }
 
+    /**
+     *
+     * @param args komentoriviargumentit
+     */
     public Fysiikkalomake(String[] args) {
         this.args = args;
     }
 
+    /**
+     *
+     * @return Fysiikka-olio
+     */
     public VerletFysiikka getFysiikka() {
         return fysiikka;
     }
    
-   public JFrame getIkkuna() {
+    /**
+     *
+     * @return lomakeikkuna
+     */
+    public JFrame getIkkuna() {
        return ikkuna;
    }
 
     /**
      *
-     * @return
+     * @return lista mallinnettavista kappaleista
      */
     public ArrayList<Pallo> getAurinkokunta() {
         return aurinkokunta;
@@ -91,6 +106,28 @@ public class Fysiikkalomake implements Runnable {
         return fieldGetDouble(v_yField);
     }
 
+    public void paivitaLaskuri() {
+        laskuri.setText("Palloja: " + fysiikka.getPallot().size());
+    }
+
+    /**
+     * Setteri testejä varten.
+     *
+     * @param fysiikka
+     */
+    public void setFysiikka(VerletFysiikka fysiikka) {
+        this.fysiikka = fysiikka;
+    }
+
+    /**
+     * Aseta käynnistys/keskeytysnappulan teksti.
+     *
+     * @param teksti asetettava teksti
+     */
+    public void setStartTeksti(String teksti) {
+        startNappi.setLabel(teksti);
+    }
+
     @Override
     public void run() {
         ikkuna = new JFrame("Aseta fysiikka");
@@ -111,6 +148,7 @@ public class Fysiikkalomake implements Runnable {
         
         c.fill = GridBagConstraints.BOTH;
         
+        // Aseta formaattitarkistukset
         DecimalFormat positFormaatti = new DecimalFormat("#0.0#;(#)");
         NumberFormatter positFormaattori = new NumberFormatter(positFormaatti);
         positFormaattori.setAllowsInvalid(false);
@@ -118,16 +156,19 @@ public class Fysiikkalomake implements Runnable {
         NumberFormatter lukuFormaattori = new NumberFormatter(lukuFormaatti);
         lukuFormaattori.setAllowsInvalid(false);
         
+        // Aseta alkuarvot
         double alkumassa=100.0;
         double alkuarvo=0.0;
         int kentanLeveys=5;
         
+        // Luo elementit
         JLabel massaTxt = new JLabel("Massa: ");
         massaField = new JFormattedTextField(positFormaatti);
         massaField.setValue(new Double(alkumassa));
         JLabel sijaintiTxt = new JLabel("Sijainti: ");
         JLabel xTxt = new JLabel(" x");
         JLabel yTxt = new JLabel(" y");
+        laskuri = new JLabel();
         xField = new JFormattedTextField(lukuFormaatti);
         xField.setValue(new Double(alkuarvo));
         xField.setColumns(kentanLeveys);
@@ -140,8 +181,9 @@ public class Fysiikkalomake implements Runnable {
         v_yField = new JFormattedTextField(lukuFormaatti);
         v_yField.setValue(new Double(alkuarvo));
         JButton lisaaNappi = new JButton("Lisää pallo");
-        JButton startNappi = new JButton("Käynnistä simulaatio!");
+        startNappi = new JButton("Käynnistä simulaatio!");
         
+        // Asettele elementit
         c.gridx=0;
         c.gridy=0;
         ruutu.add(massaTxt,c);
@@ -178,8 +220,11 @@ public class Fysiikkalomake implements Runnable {
         c.gridx=2;
         ruutu.add(v_yField,c);
         
-        c.gridx=1;
         c.gridy++;
+        c.gridx=0;
+        ruutu.add(laskuri,c);
+        
+        c.gridx=1;
         c.gridwidth=2;
         ruutu.add(lisaaNappi,c);
         
@@ -188,20 +233,25 @@ public class Fysiikkalomake implements Runnable {
         c.gridwidth=3;
         ruutu.add(startNappi,c);
         
-        aurinkokunta = new ArrayList<>();
-
-        fysiikka = new VerletFysiikka(0.001, aurinkokunta);
+        luoInstanssit();     
         
-        PalloLogiikka logiikka = new PalloLogiikka(this);
-        logiikka.pallotTiedostosta(args, aurinkokunta);
+        logiikka.pallotTiedostosta(args[0], aurinkokunta);
         
-        simu = new Simulaattori(fysiikka);
+        paivitaLaskuri();
         
+        // Nappeihin kuuntelijat
         lisaaNappi.addActionListener(new LisaysKuuntelija(this));
-        startNappi.addActionListener(new StartKuuntelija(simu));
+        startNappi.addActionListener(new StartKuuntelija(this,simu));
     }
     
     private double fieldGetDouble(JFormattedTextField field) {
         return ((Number)field.getValue()).doubleValue();
+    }
+
+    private void luoInstanssit() {
+        aurinkokunta = new ArrayList<>();
+        fysiikka = new VerletFysiikka(0.001, aurinkokunta);
+        logiikka = new PalloLogiikka(this);
+        simu = new Simulaattori(fysiikka);
     }
 }
