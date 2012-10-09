@@ -58,7 +58,7 @@ public class LisaysKuuntelija implements ActionListener {
         return 0;
     }
     
-    private boolean onLiikaLiki(Pallo pallo, Pallo toinen) {
+    protected boolean onLiikaLiki(Pallo pallo, Pallo toinen) {
         double epsilon = 0.01;
         if (Math.abs(lomake.getFysiikka().distance(pallo, toinen))<epsilon) {
             return true;

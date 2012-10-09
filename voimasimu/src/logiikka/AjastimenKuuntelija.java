@@ -26,8 +26,13 @@ public class AjastimenKuuntelija implements ActionListener {
         this.simu = simu;
     }
 
+    /**
+     * Käskee simulaattoria ottamaan seuraavan askeleen.
+     * 
+     * @param tapahtuma
+     */
     @Override
-    public void actionPerformed(ActionEvent tapahtuma) {
+    public void actionPerformed(ActionEvent tapahtuma) {   
         simu.seuraavaAskel();
     }
     
