@@ -34,7 +34,16 @@ public class VerletFysiikka {
         this.pallot = pallot;
     }
     
-    private double acceleration(Pallo p, int dim) {
+    /**
+     * Laskee kiihtyvyyden x- tai y-komponentin annetulle kappaleelle.
+     * 
+     * Kiihtyvyyden laskemisessa otetaan kaikki muut systeemin kappaleet huomioon.
+     *
+     * @param p kappale, jolle kiihtyvyys lasketaan
+     * @param dim x-komponentti arvolla 0 tai y arvolla 1
+     * @return kappaleen p kiihtyvyys
+     */
+    protected double kiihtyvyys(Pallo p, int dim) {
         double a;
         double a_dim = 0;
         double r;
@@ -43,20 +52,22 @@ public class VerletFysiikka {
                 continue;
             }
             r = p.getX(dim)-toinen.getX(dim);
-            a = -G*toinen.getMass()/pow(distance(p,toinen),2); //gravitaatiolaki
-            a_dim += a/distance(p,toinen)*r;
+            a = -G*toinen.getMass()/pow(etaisyys(p,toinen),2); //gravitaatiolaki
+            a_dim += a/etaisyys(p,toinen)*r;
         }
         return a_dim;
     }
     
     /**
-     * Kahden kappaleen välinen etäisyys.
+     * Kahden kappaleen massakeskipisteiden välinen etäisyys.
+     * 
+     * r=sqrt((x1-x2)^2+(y1-y2)^2)
      *
      * @param p1 kappale 1
      * @param p2 kappale 2
      * @return kappaleiden 1 ja 2 välinen etäisyys
      */
-    public double distance(Pallo p1, Pallo p2) {
+    public double etaisyys(Pallo p1, Pallo p2) {
         return sqrt(pow(p1.getX(0)-p2.getX(0),2) + pow(p1.getX(1)-p2.getX(1),2));
     }
 
@@ -68,9 +79,9 @@ public class VerletFysiikka {
         for (Pallo p : pallot) {
             for (int dim=0; dim<2; dim++) {
                 //velocity verlet -algoritmi:
-                a_now=acceleration(p, dim);
+                a_now=kiihtyvyys(p, dim);
                 p.setX(p.getX(dim) + p.getV(dim)*dt + 0.5*a_now*dt*dt, dim);
-                a_next=acceleration(p, dim);
+                a_next=kiihtyvyys(p, dim);
                 p.setV(p.getV(dim)+0.5*(a_now+a_next), dim);
             }
         }

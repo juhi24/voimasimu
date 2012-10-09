@@ -74,7 +74,7 @@ public class VerletFysiikkaTest {
         aurinkokunta.add(planeetta);
         fysiikka = new VerletFysiikka(1,aurinkokunta);
         double expResult = 100.0;
-        double result = fysiikka.distance(aurinko, planeetta);
+        double result = fysiikka.etaisyys(aurinko, planeetta);
         System.out.println(result);
         assertEquals(expResult, result, 0.001);
     }
@@ -82,18 +82,19 @@ public class VerletFysiikkaTest {
     /**
      * Test of step method, of class VerletFysiikka.
      */
-//    @Test
-//    public void testStep() {
-//        System.out.println("step");
-//        VerletFysiikka instance = null;
-//        instance.step();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testStep() {
+        System.out.println("step");
+        fysiikka = new VerletFysiikka(1, aurinkokunta);
+        fysiikka.step();
+    }
     
+    /**
+     * Testaa Newtonin I lain toteutumista staattisessa tilanteessa.
+     */
     @Test
     public void testNewtonI_static() {
-        System.out.println("Newton I static");
+        System.out.println("Newton I staattinen");
         aurinkokunta.add(aurinko);
         fysiikka = new VerletFysiikka(10,aurinkokunta);
         fysiikka.step();
@@ -101,9 +102,12 @@ public class VerletFysiikkaTest {
         assertEquals(0,aurinko.getX(1),0.001);
     }
     
+    /**
+     * Testaa Newtonin I lain toteutumista tasaisen liikkeen tapauksessa.
+     */
     @Test
     public void testNewtonI_steady() {
-        System.out.println("Newton I steady movement");
+        System.out.println("Newton I tasainen nopeus");
         aurinkokunta.add(planeetta);
         fysiikka = new VerletFysiikka(1,aurinkokunta);
         fysiikka.step();
@@ -112,11 +116,17 @@ public class VerletFysiikkaTest {
         assertEquals(20,planeetta.getV(1),0.01);
     }
     
+    /**
+     * Testaa Newtonin III lain toteutumista.
+     */
     @Test
     public void testNewtonIII() {
         System.out.println("Newton III");
         aurinkokunta.add(aurinko);
         aurinkokunta.add(planeetta);
         fysiikka = new VerletFysiikka(1,aurinkokunta);
+        double voima1 = aurinko.getMass()*fysiikka.kiihtyvyys(aurinko, 0);
+        double voima2 = planeetta.getMass()*fysiikka.kiihtyvyys(planeetta, 0);
+        assertEquals(voima1, -voima2,0.01);
     }
 }

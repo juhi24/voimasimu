@@ -20,7 +20,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Fysiikkalomake lomake = new Fysiikkalomake();
+        Fysiikkalomake lomake = new Fysiikkalomake(args);
         SwingUtilities.invokeLater(lomake);
     }
 }

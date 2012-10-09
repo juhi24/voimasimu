@@ -23,18 +23,57 @@ public class Fysiikkalomake implements Runnable {
    private JFormattedTextField yField;
    private JFormattedTextField v_xField;
    private JFormattedTextField v_yField;
+   private String[] args;
+   private PalloLogiikka logiikka;
+   private JButton lisaaNappi;
+   private JButton startNappi;
+   private JLabel laskuri;
+   private JLabel nopeusTxt;
+   private JLabel sijaintiTxt;
+   private JLabel xTxt;
+   private JLabel yTxt;
+   private JLabel massaTxt;
+   private DecimalFormat positFormaatti;
+   private NumberFormatter positFormaattori;
+   private DecimalFormat lukuFormaatti;
+   private NumberFormatter lukuFormaattori;
+   private double alkumassa;
+   private double alkuarvo;
+   private int kentanLeveys;
 
+    /**
+     * Tyhjä konstruktori
+     */
+    public Fysiikkalomake() {
+    }
+
+    /**
+     *
+     * @param args komentoriviargumentit
+     */
+    public Fysiikkalomake(String[] args) {
+        this.args = args;
+    }
+
+    /**
+     *
+     * @return Fysiikka-olio
+     */
     public VerletFysiikka getFysiikka() {
         return fysiikka;
     }
    
-   public JFrame getIkkuna() {
+    /**
+     *
+     * @return lomakeikkuna
+     */
+    public JFrame getIkkuna() {
        return ikkuna;
    }
 
     /**
      *
-     * @return
+     * @return lista mallinnettavista kappaleista
      */
     public ArrayList<Pallo> getAurinkokunta() {
         return aurinkokunta;
@@ -80,10 +119,26 @@ public class Fysiikkalomake implements Runnable {
         return fieldGetDouble(v_yField);
     }
 
+    public void paivitaLaskuri() {
+        laskuri.setText("Palloja: " + fysiikka.getPallot().size());
+    }
+
     /**
-     * Tyhjä konstruktori
+     * Setteri testejä varten.
+     *
+     * @param fysiikka
      */
-    public Fysiikkalomake() {
+    public void setFysiikka(VerletFysiikka fysiikka) {
+        this.fysiikka = fysiikka;
+    }
+
+    /**
+     * Aseta käynnistys/keskeytysnappulan teksti.
+     *
+     * @param teksti asetettava teksti
+     */
+    public void setStartTeksti(String teksti) {
+        startNappi.setLabel(teksti);
     }
 
     @Override
@@ -106,37 +161,16 @@ public class Fysiikkalomake implements Runnable {
         
         c.fill = GridBagConstraints.BOTH;
         
-        DecimalFormat positFormaatti = new DecimalFormat("#0.0#;(#)");
-        NumberFormatter positFormaattori = new NumberFormatter(positFormaatti);
-        positFormaattori.setAllowsInvalid(false);
-        DecimalFormat lukuFormaatti = new DecimalFormat("#0.0#");
-        NumberFormatter lukuFormaattori = new NumberFormatter(lukuFormaatti);
-        lukuFormaattori.setAllowsInvalid(false);
+        // Aseta formaattitarkistukset
+        asetaFormaattitarkistukset();
         
-        double alkumassa=100.0;
-        double alkuarvo=0.0;
-        int kentanLeveys=5;
+        // Aseta oletusarvot ja parametrit
+        asetaParametrit();
         
-        JLabel massaTxt = new JLabel("Massa: ");
-        massaField = new JFormattedTextField(positFormaatti);
-        massaField.setValue(new Double(alkumassa));
-        JLabel sijaintiTxt = new JLabel("Sijainti: ");
-        JLabel xTxt = new JLabel(" x");
-        JLabel yTxt = new JLabel(" y");
-        xField = new JFormattedTextField(lukuFormaatti);
-        xField.setValue(new Double(alkuarvo));
-        xField.setColumns(kentanLeveys);
-        yField = new JFormattedTextField(lukuFormaatti);
-        yField.setValue(new Double(alkuarvo));
-        yField.setColumns(kentanLeveys);
-        JLabel nopeusTxt = new JLabel("Alkunopeus: ");
-        v_xField = new JFormattedTextField(lukuFormaatti);
-        v_xField.setValue(new Double(alkuarvo));
-        v_yField = new JFormattedTextField(lukuFormaatti);
-        v_yField.setValue(new Double(alkuarvo));
-        JButton lisaaNappi = new JButton("Lisää pallo");
-        JButton startNappi = new JButton("Käynnistä simulaatio!");
+        // Luo elementit
+        luoElementit();
         
+        // Asettele elementit
         c.gridx=0;
         c.gridy=0;
         ruutu.add(massaTxt,c);
@@ -173,8 +207,11 @@ public class Fysiikkalomake implements Runnable {
         c.gridx=2;
         ruutu.add(v_yField,c);
         
-        c.gridx=1;
         c.gridy++;
+        c.gridx=0;
+        ruutu.add(laskuri,c);
+        
+        c.gridx=1;
         c.gridwidth=2;
         ruutu.add(lisaaNappi,c);
         
@@ -183,25 +220,63 @@ public class Fysiikkalomake implements Runnable {
         c.gridwidth=3;
         ruutu.add(startNappi,c);
         
-        //Testikappaleet
-        Pallo aurinko = new Pallo(1000, 0, 0, 0, 0);
-        Pallo planeetta = new Pallo(80, 35, 0, 0, 400);
-        Pallo murikka = new Pallo(40, -10, 0, 0, -800);
-
-        aurinkokunta = new ArrayList<>();
-        aurinkokunta.add(aurinko);
-        aurinkokunta.add(planeetta);
-        aurinkokunta.add(murikka);
-
-        fysiikka = new VerletFysiikka(0.001, aurinkokunta);
+        luoInstanssit();     
         
-        simu = new Simulaattori(fysiikka);
+        logiikka.pallotTiedostosta(args[0], aurinkokunta);
         
+        paivitaLaskuri();
+        
+        // Nappeihin kuuntelijat
         lisaaNappi.addActionListener(new LisaysKuuntelija(this));
-        startNappi.addActionListener(new StartKuuntelija(simu));
+        startNappi.addActionListener(new StartKuuntelija(this,simu));
     }
     
     private double fieldGetDouble(JFormattedTextField field) {
         return ((Number)field.getValue()).doubleValue();
+    }
+
+    private void luoInstanssit() {
+        aurinkokunta = new ArrayList<>();
+        fysiikka = new VerletFysiikka(0.001, aurinkokunta);
+        logiikka = new PalloLogiikka(this);
+        simu = new Simulaattori(fysiikka);
+    }
+
+    private void luoElementit() {
+        massaTxt = new JLabel("Massa: ");
+        massaField = new JFormattedTextField(positFormaatti);
+        massaField.setValue(new Double(alkumassa));
+        sijaintiTxt = new JLabel("Sijainti: ");
+        xTxt = new JLabel(" x");
+        yTxt = new JLabel(" y");
+        laskuri = new JLabel();
+        xField = new JFormattedTextField(lukuFormaatti);
+        xField.setValue(new Double(alkuarvo));
+        xField.setColumns(kentanLeveys);
+        yField = new JFormattedTextField(lukuFormaatti);
+        yField.setValue(new Double(alkuarvo));
+        yField.setColumns(kentanLeveys);
+        nopeusTxt = new JLabel("Alkunopeus: ");
+        v_xField = new JFormattedTextField(lukuFormaatti);
+        v_xField.setValue(new Double(alkuarvo));
+        v_yField = new JFormattedTextField(lukuFormaatti);
+        v_yField.setValue(new Double(alkuarvo));
+        lisaaNappi = new JButton("Lisää pallo");
+        startNappi = new JButton("Käynnistä simulaatio!");
+    }
+
+    private void asetaFormaattitarkistukset() {
+        positFormaatti = new DecimalFormat("#0.0#;(#)");
+        positFormaattori = new NumberFormatter(positFormaatti);
+        positFormaattori.setAllowsInvalid(false);
+        lukuFormaatti = new DecimalFormat("#0.0#");
+        lukuFormaattori = new NumberFormatter(lukuFormaatti);
+        lukuFormaattori.setAllowsInvalid(false);
+    }
+
+    private void asetaParametrit() {
+        alkumassa = 100.0;
+        alkuarvo = 0.0;
+        kentanLeveys = 5;
     }
 }
