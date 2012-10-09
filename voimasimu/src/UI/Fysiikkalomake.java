@@ -222,7 +222,9 @@ public class Fysiikkalomake implements Runnable {
         
         luoInstanssit();     
         
-        logiikka.pallotTiedostosta(args[0], aurinkokunta);
+        if (args.length>0) {
+            logiikka.pallotTiedostosta(args[0], aurinkokunta);
+        }
         
         paivitaLaskuri();
         

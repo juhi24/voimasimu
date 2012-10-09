@@ -1,0 +1,3 @@
+==Testit==
+* Keskeneräiset kuntoon
+* Simulaattorin seuraavaAskel-metodille pari testiä
