@@ -6,6 +6,7 @@ package logiikka;
 
 import java.util.ArrayList;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,12 +32,13 @@ public class SimulaattoriTest {
     }
 
     /**
-     * Test of run method, of class Simulaattori.
+     * Testataan ettei tyhjä simulaatio räjähdä.
      */
     @Test
     public void testRunTyhja() {
         System.out.println("Tyhjä simulaatio");
         simu.run();
+        assertNotNull(simu);
     }
 
     /**

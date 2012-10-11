@@ -5,14 +5,10 @@ package logiikka;
  * and open the template in the editor.
  */
 
-import logiikka.VerletFysiikka;
-import logiikka.Pallo;
 import java.util.ArrayList;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -28,15 +24,6 @@ public class VerletFysiikkaTest {
     public VerletFysiikkaTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-        
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         aurinkokunta = new ArrayList<>();
@@ -49,26 +36,10 @@ public class VerletFysiikkaTest {
     }
 
     /**
-     * Test of acceleration method, of class VerletFysiikka.
-     */
-//    @Test
-//    public void testAcceleration() {
-//        System.out.println("acceleration");
-//        Pallo p = null;
-//        int dim = 0;
-//        VerletFysiikka instance = null;
-//        double expResult = 0.0;
-//        double result = instance.acceleration(p, dim);
-//        assertEquals(expResult, result, 0.0);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-
-    /**
-     * Test of distance method, of class VerletFysiikka.
+     * Testataan että etäisyys lasketaan oikein.
      */
     @Test
-    public void testDistance() {
+    public void testEtaisyys() {
         System.out.println("distance");
         aurinkokunta.add(aurinko);
         aurinkokunta.add(planeetta);
@@ -80,13 +51,14 @@ public class VerletFysiikkaTest {
     }
 
     /**
-     * Test of step method, of class VerletFysiikka.
+     * Tarkistetaan ettei tyhjä simulaatio riko mitään.
      */
     @Test
-    public void testStep() {
+    public void testEmptyStep() {
         System.out.println("step");
         fysiikka = new VerletFysiikka(1, aurinkokunta);
         fysiikka.step();
+        assertNotNull(fysiikka);
     }
     
     /**
