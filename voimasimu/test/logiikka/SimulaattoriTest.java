@@ -42,11 +42,12 @@ public class SimulaattoriTest {
     }
 
     /**
-     * Test of seuraavaAskel method, of class Simulaattori.
+     * Testataan ettei räjähdä vaikka ajastinta ei alustaisi.
      */
     //@Test
     public void testSeuraavaAskelAlustamattaAjastinta() {
         System.out.println("seuraavaAskel");
         simu.seuraavaAskel();
+        assertNull(simu.getAjastin());
     }
 }

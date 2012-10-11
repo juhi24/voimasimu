@@ -2,8 +2,6 @@ package logiikka;
 
 import UI.Piirturi;
 import java.awt.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -22,7 +20,7 @@ public class Simulaattori implements Runnable {
     private Timer ajastin;
     private int leveys;
     private int korkeus;
-    private boolean pysaytysKasky;
+    private boolean pysaytyskasky;
 
     /**
      * Alusta simulaattori fysiikkamoottorilla.
@@ -34,6 +32,7 @@ public class Simulaattori implements Runnable {
     }
 
     /**
+     * Simulaatiofysiikan getteri.
      *
      * @return fysiikka-olio
      */
@@ -57,16 +56,33 @@ public class Simulaattori implements Runnable {
         return leveys;
     }
 
+    /**
+     * Simulaation ajastimen getteri.
+     *
+     * @return simulaation ajastin
+     */
     public Timer getAjastin() {
         return ajastin;
     }
 
-    public boolean isPysaytysKasky() {
-        return pysaytysKasky;
+    /**
+     * Pysäytyskäskyn ollessa voimassa (true), simulaatio keskeytetään ennen seuraavaa aika-askelta.
+     *
+     * @return pysäytyskäskyn arvo
+     */
+    public boolean isPysaytyskasky() {
+        return pysaytyskasky;
     }
 
-    public void setPysaytysKasky(boolean pysaytysKasky) {
-        this.pysaytysKasky = pysaytysKasky;
+    /**
+     * Pysäytyskäskyn setteri.
+     * 
+     * @see isPysaytyskasky()
+     *
+     * @param pysaytysKasky käskyn arvo
+     */
+    public void setPysaytyskasky(boolean pysaytysKasky) {
+        this.pysaytyskasky = pysaytysKasky;
     }
 
     /**
@@ -99,7 +115,7 @@ public class Simulaattori implements Runnable {
     }
 
     private void otaAskel() {
-        if (pysaytysKasky) {
+        if (pysaytyskasky) {
             return;
         }
         fysiikka.step();

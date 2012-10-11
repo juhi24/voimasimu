@@ -33,7 +33,7 @@ public class PalloLogiikkaTest {
     }
 
     /**
-     * Test of onLiikaLiki method, of class PalloLogiikka.
+     * Testataan että liian lähekkäiset pallot huomataan.
      */
     @Test
     public void testOnLiikaLiki() {
@@ -46,7 +46,7 @@ public class PalloLogiikkaTest {
     }
     
     /**
-     * Test of onLiikaLiki method, of class PalloLogiikka.
+     * Testataan, ettei onLiikaLiki ylireagoi.
      */
     @Test
     public void testEiOleLiikaLiki() {
@@ -59,11 +59,11 @@ public class PalloLogiikkaTest {
     }
 
     /**
-     * Test of lisaaPallo method, of class PalloLogiikka.
+     * Testataan onnistunut lisäys.
      */
     @Test
     public void testLisaaPallo() {
-        System.out.println("lisaaPallo");
+        System.out.println("lisaaPallo - onnistunut lisäys");
         double massa = 100.0;
         double x = 0.0;
         double y = 0.0;
@@ -76,11 +76,11 @@ public class PalloLogiikkaTest {
     }
     
     /**
-     * Test of lisaaPallo method, of class PalloLogiikka.
+     * Testataan että negatiivinen massa huomataan.
      */
     @Test
     public void lisaaNegatMassa() {
-        System.out.println("lisaaPallo");
+        System.out.println("lisaaPallo - negatiivinen massa");
         double massa = -100.0;
         double x = 0.0;
         double y = 0.0;
@@ -93,11 +93,11 @@ public class PalloLogiikkaTest {
     }
     
     /**
-     * Test of lisaaPallo method, of class PalloLogiikka.
+     * Testataan että liian lähekkäiset koordinaatit huomataan.
      */
     @Test
     public void lisaaSamaanPisteeseen() {
-        System.out.println("lisaaPallo");
+        System.out.println("lisaaPallo - samat koordinaatit");
         double massa = 100.0;
         double x = 0.0;
         double y = 0.0;
@@ -111,7 +111,7 @@ public class PalloLogiikkaTest {
     }
     
     /**
-     * Test of pallotTiedostosta method, of class PalloLogiikka.
+     * Testataan, että palloja tulee tiedostosta.
      */
     @Test
     public void testPallotTiedostosta() {
@@ -119,5 +119,6 @@ public class PalloLogiikkaTest {
         String tiedostonimi = "testikappaleet.csv";
         ArrayList<Pallo> aurinkokunta = new ArrayList<>();
         logiikka.pallotTiedostosta(tiedostonimi, aurinkokunta);
+        assertFalse(aurinkokunta.isEmpty());
     }
 }

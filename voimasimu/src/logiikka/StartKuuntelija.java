@@ -33,15 +33,15 @@ public class StartKuuntelija implements ActionListener {
         Thread thread = new Thread(simu);
         if (simu.getAjastin()==null) {
             System.out.println("ei käynnissä, käynnistetään.");
-            simu.setPysaytysKasky(false);
+            simu.setPysaytyskasky(false);
             thread.start();
             lomake.setStartTeksti("Keskeytä simulaatio!");
         } else if (simu.getAjastin().isRunning()) {
-            simu.setPysaytysKasky(true);
+            simu.setPysaytyskasky(true);
             lomake.setStartTeksti("Jatka simulaatiota!");
             System.out.println("seis!");
         } else {
-            simu.setPysaytysKasky(false);
+            simu.setPysaytyskasky(false);
             simu.seuraavaAskel();
             lomake.setStartTeksti("Keskeytä simulaatio!");
             System.out.println("jatkuu");
