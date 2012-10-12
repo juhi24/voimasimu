@@ -39,12 +39,12 @@ public class StartKuuntelija implements ActionListener {
         } else if (simu.getAjastin().isRunning()) {
             simu.setPysaytyskasky(true);
             lomake.setStartTeksti("Jatka simulaatiota!");
-            System.out.println("seis!");
+            //System.out.println("seis!");
         } else {
             simu.setPysaytyskasky(false);
             simu.seuraavaAskel();
             lomake.setStartTeksti("Keskeytä simulaatio!");
-            System.out.println("jatkuu");
+            //System.out.println("jatkuu");
         }
     }
 }
